@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: targets
+  roles:
+    - role: ansible-role-girder-nginx
+      vars:
+        nginx_hostname: "girder-nginx.test"
