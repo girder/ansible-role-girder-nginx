@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  role_name: nginx
+  description: Install Nginx and configure it for use with Girder
+
+  author: Kitware, Inc.
+  company: Kitware, Inc.
+  issue_tracker_url:
+    https://github.com/girder/ansible-role-girder-nginx/issues
+
+  license: Apache
+
+  min_ansible_version: 2.7
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+
+  galaxy_tags: []

@@ -1,0 +1,14 @@
+resolver 8.8.8.8 8.8.4.4 valid=300s;
+resolver_timeout 5s;
+
+client_max_body_size 100M;
+
+server {
+    listen 80 default_server;
+    server_name {{ nginx_hostname }};
+
+    if ($host = {{ nginx_hostname }}) {
+        return 301 https://$host$request_uri;
+    }
+    return 404;
+}

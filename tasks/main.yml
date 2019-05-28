@@ -1,0 +1,84 @@
+---
+- name: Install Nginx package
+  apt:
+    name: nginx-light
+    force_apt_get: true
+  notify:
+    - Restart Nginx
+  become: true
+  become_user: root
+
+- name: Remove Nginx default site config file
+  file:
+    state: absent
+    path: "/etc/nginx/sites-enabled/default"
+  notify:
+    - Restart Nginx
+  become: true
+  become_user: root
+
+# This must run before Certbot is used, to provide an HTTP-only config
+- name: Deploy Nginx base config file
+  template:
+    src: base.conf.j2
+    dest: "/etc/nginx/conf.d/base.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Nginx
+  become: true
+  become_user: root
+
+- name: Install Certbot package
+  apt:
+    name: python3-certbot-nginx
+    force_apt_get: true
+  become: true
+  become_user: root
+
+- name: Obtain an SSL certificate from Let's Encrypt
+  command: >-
+    certbot certonly --nginx
+    --email {{ nginx_registration_email }}
+    --agree-tos
+    --no-eff-email
+    --cert-name {{ nginx_hostname }}
+    --domains {{ nginx_hostname }}
+    --keep-until-expiring
+    --non-interactive
+  args:
+    creates: "/etc/letsencrypt/live/{{ nginx_hostname }}/privkey.pem"
+  notify:
+    - Restart Nginx
+  become: true
+  become_user: root
+
+- name: Add a cron job for SSL certificate renewal
+  cron:
+    name: certbot
+    job: >-
+      certbot renew
+      --deploy-hook 'sudo systemctl reload nginx'
+    special_time: daily
+  become: true
+  become_user: root
+
+- name: Deploy Nginx Girder config file
+  template:
+    src: girder.conf.j2
+    dest: "/etc/nginx/conf.d/girder.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart Nginx
+  become: true
+  become_user: root
+
+- name: Enable Nginx service
+  service:
+    name: nginx
+    enabled: true
+  become: true
+  become_user: root
