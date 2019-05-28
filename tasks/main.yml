@@ -80,6 +80,7 @@
     job: >-
       certbot renew
       --deploy-hook 'sudo systemctl reload nginx'
+      --quiet
     special_time: daily
   become: true
   become_user: root
