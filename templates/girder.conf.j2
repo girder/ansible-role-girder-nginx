@@ -43,3 +43,22 @@ server {
         proxy_send_timeout 600s;
     }
 }
+
+{% if nginx_redirect_www %}
+    listen 443;
+    server_name www.{{ nginx_hostname }};
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/{{ nginx_hostname }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ nginx_hostname }}/privkey.pem;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    # OCSP stapling
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ nginx_hostname }}/chain.pem;
+    # HSTS
+    add_header Strict-Transport-Security max-age=63072000;
+
+    return 301 https://{{ nginx_hostname }}$request_uri;
+{% endif %}

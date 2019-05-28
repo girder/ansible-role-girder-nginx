@@ -5,10 +5,15 @@ client_max_body_size 100M;
 
 server {
     listen 80 default_server;
-    server_name {{ nginx_hostname }};
+    server_name {{ nginx_hostname }}{% if nginx_redirect_www %} www.{{ nginx_hostname }}{% endif %};
 
     if ($host = {{ nginx_hostname }}) {
         return 301 https://$host$request_uri;
     }
+{% if nginx_redirect_www %}
+    if ($host = www.{{ nginx_hostname }}) {
+        return 301 https://{{ nginx_hostname }}$request_uri;
+    }
+{% endif %}
     return 404;
 }
