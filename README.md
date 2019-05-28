@@ -27,6 +27,7 @@ Role Variables
 | ------------------------ | -------- | ------------------ | ----------------------------------------------------------------------- |
 | nginx_hostname           | yes      |                    | The hostname of the site.                                               |
 | nginx_registration_email | no       | girder@kitware.com | The email address to register with Let's Encrypt for expiration alerts. |
+| nginx_redirect_www       | no       | false              | Whether to add a redirect from the the "www." subdomain.                |
 
 Dependencies
 ------------
