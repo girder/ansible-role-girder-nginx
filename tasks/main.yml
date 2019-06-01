@@ -30,9 +30,28 @@
   become: true
   become_user: root
 
+- name: Add Certbot PPA key
+  apt_key:
+    id: "{{ nginx_certbot_ubuntu_apt_key }}"
+    keyserver: "keyserver.ubuntu.com"
+  become: true
+  become_user: root
+
+- name: Add Certbot PPA
+  apt_repository:
+    repo: >-
+      deb
+      http://ppa.launchpad.net/certbot/certbot/ubuntu
+      {{ ansible_distribution_release }}
+      main
+    update_cache: true
+  become: true
+  become_user: root
+
 - name: Install Certbot package
   apt:
-    name: python3-certbot-nginx
+    # This is Python 3, but named differently in the PPA
+    name: python-certbot-nginx
     force_apt_get: true
   become: true
   become_user: root
