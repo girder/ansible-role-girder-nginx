@@ -64,6 +64,7 @@
     --no-eff-email
     --cert-name {{ nginx_hostname }}
     --domains {{ nginx_hostname }}
+    --rsa-key-size 4096
     --keep-until-expiring
     --non-interactive
   args:
