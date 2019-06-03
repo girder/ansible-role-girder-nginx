@@ -84,14 +84,16 @@
   become: true
   become_user: root
 
-- name: Add a cron job for SSL certificate renewal
-  cron:
-    name: certbot
-    job: >-
-      certbot renew
-      --deploy-hook 'sudo systemctl reload nginx'
-      --quiet
-    special_time: daily
+# The Certbot package inserts a systemd timer entry for renewal
+# Certbot's internal attempts to reload Nginx do not use systemd; this
+# script ensures that the whole service is reloaded upon renewal success
+- name: Add Certbot renewal hook to reload Nginx
+  copy:
+    content: |
+      #!/bin/bash
+      sudo systemctl reload nginx
+    dest: /etc/letsencrypt/renewal-hooks/deploy/01_reload_nginx.sh
+    mode: 0755
   become: true
   become_user: root
 

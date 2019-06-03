@@ -13,11 +13,6 @@
         name: iproute2
         state: present
         force_apt_get: true
-    - name: Install cron
-      apt:
-        name: cron
-        state: present
-        force_apt_get: true
     - name: Preconfigure Certbot to use local service for ACME
       ini_file:
         path: "{{ ansible_user_dir }}/.config/letsencrypt/cli.ini"
