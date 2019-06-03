@@ -56,6 +56,16 @@
   become: true
   become_user: root
 
+# Nginx must be already started via systemd, or running Certbot will start its
+# own instance, then orphan that Nginx process (still bound to ports) when it
+# ends
+- name: Ensure Nginx is running
+  systemd:
+    name: nginx
+    state: started
+  become: true
+  become_user: root
+
 - name: Obtain an SSL certificate from Let's Encrypt
   command: >-
     certbot certonly --nginx
@@ -98,7 +108,7 @@
   become_user: root
 
 - name: Enable Nginx service
-  service:
+  systemd:
     name: nginx
     enabled: true
   become: true
