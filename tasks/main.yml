@@ -66,6 +66,7 @@
   become: true
   become_user: root
 
+# TODO: add nginx_redirect_www support to --domains option
 - name: Obtain an SSL certificate from Let's Encrypt
   command: >-
     certbot certonly --nginx
