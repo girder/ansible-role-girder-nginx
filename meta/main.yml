@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   role_name: nginx
-  description: Install Nginx and configure it for use with Girder
+  description: Install Nginx, with HTTPS support, and configure it for use with Girder
 
   author: Kitware, Inc.
   company: Kitware, Inc.
