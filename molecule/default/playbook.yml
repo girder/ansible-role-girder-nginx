@@ -4,4 +4,4 @@
   roles:
     - role: ansible-role-girder-nginx
       vars:
-        nginx_hostname: "girder-nginx.test"
+        nginx_hostname: "{{ inventory_hostname }}"
