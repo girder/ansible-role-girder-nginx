@@ -1,0 +1,35 @@
+---
+- name: Prepare
+  hosts: targets
+  tasks:
+    - name: Install gnupg2
+      apt:
+        name: gnupg2
+        state: present
+        force_apt_get: true
+    # The "ss" tool is needed by testinfra for socket inspection
+    - name: Install ss
+      apt:
+        name: iproute2
+        state: present
+        force_apt_get: true
+    - name: Install cron
+      apt:
+        name: cron
+        state: present
+        force_apt_get: true
+    - name: Preconfigure Certbot to use local service for ACME
+      ini_file:
+        path: "{{ ansible_user_dir }}/.config/letsencrypt/cli.ini"
+        section: null
+        option: "server"
+        value: "https://pebble:14000/dir"
+    - name: Allow local ACME to use a custom root CA
+      # https://github.com/letsencrypt/pebble#avoiding-client-https-errors
+      copy:
+        src: pebble.minica.pem
+        dest: /usr/local/share/ca-certificates/pebble.minica.crt
+      register: crt_result
+    - name: Register custom root CAs
+      command: update-ca-certificates
+      when: crt_result.changed
