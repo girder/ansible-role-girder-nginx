@@ -25,7 +25,7 @@ Role Variables
 
 | parameter                  | required | default              | comments                                                                |
 | -------------------------- | -------- | -------------------- | ----------------------------------------------------------------------- |
-| `nginx_hostname`           | yes      |                      | The hostname of the site.                                               |
+| `nginx_hostname`           | yes      |                      | The hostname of the site. `{{ inventory_hostname }}` may provide this.  |
 | `nginx_registration_email` | no       | `girder@kitware.com` | The email address to register with Let's Encrypt for expiration alerts. |
 
 Dependencies
