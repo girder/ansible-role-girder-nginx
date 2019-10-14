@@ -1,13 +1,11 @@
-girder.nginx
-============
+# girder.nginx
 [![Apache 2.0](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/girder/ansible-role-girder-nginx/master/LICENSE)
 [![Tests](https://circleci.com/gh/girder/ansible-role-girder-nginx.svg?style=svg)](https://circleci.com/gh/girder/ansible-role-girder-nginx)
 
 An Ansible role to install Nginx, with HTTPS support, and configure it
 for use with Girder.
 
-Requirements
-------------
+## Requirements
 
 Ubuntu 18.04+.
 
@@ -20,8 +18,7 @@ stapling. Many firewalls (e.g. the
 [AWS EC2 default security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#default-security-group))
 do not allow this by default.
 
-Role Variables
---------------
+## Role Variables
 
 | parameter                   | required | default              | comments                                                                |
 | --------------------------- | -------- | -------------------- | ----------------------------------------------------------------------- |
@@ -29,16 +26,14 @@ Role Variables
 | `nginx_registration_email`  | no       | `girder@kitware.com` | The email address to register with Let's Encrypt for expiration alerts. |
 | `nginx_extra_server_config` | no       |                      | Any extra Nginx configuration to add to the `server` block for Girder.  |
 
-Dependencies
-------------
+## Dependencies
 
 This role does not have any formal dependencies, but is intended to be
 used in conjunction with the
 [`girder.girder` role](https://galaxy.ansible.com/girder/girder).
 
 
-Example Playbook
-----------------
+## Example Playbook
 
 A typical playbook using this role may look like:
 
@@ -55,7 +50,6 @@ A typical playbook using this role may look like:
         nginx_hostname: data.girder.org
 ```
 
-License
--------
+## License
 
 [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
