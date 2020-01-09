@@ -50,6 +50,19 @@ A typical playbook using this role may look like:
         nginx_hostname: data.girder.org
 ```
 
+A typical
+[Ansible Galaxy `requirements.yml` file](https://galaxy.ansible.com/docs/using/installing.html#installing-multiple-roles-from-a-file)
+should look like:
+
+```yaml
+- src: girder.mongodb
+  version: master
+- src: girder.girder
+  version: master
+- src: girder.nginx
+  version: master
+```
+
 ## License
 
 [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
