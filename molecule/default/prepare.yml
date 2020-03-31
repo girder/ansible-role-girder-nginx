@@ -2,14 +2,6 @@
 - name: Prepare
   hosts: targets
   tasks:
-    - name: Install gnupg2
-      apt:
-        update_cache: true
-        name: gnupg2
-        state: present
-        force_apt_get: true
-      become: true
-      become_user: root
     - name: Install snap core runtime
       snap:
         name: core

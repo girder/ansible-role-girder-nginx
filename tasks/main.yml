@@ -33,8 +33,6 @@
   become: true
   become_user: root
 
-- import_tasks: migrate.yml
-
 - name: Install Certbot snap package
   snap:
     name: certbot
