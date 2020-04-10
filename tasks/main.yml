@@ -33,30 +33,13 @@
   become: true
   become_user: root
 
-- name: Add Certbot PPA key
-  apt_key:
-    id: "{{ nginx_certbot_ubuntu_apt_key }}"
-    # https://unix.stackexchange.com/a/110594
-    keyserver: "hkps://keyserver.ubuntu.com:443"
-  become: true
-  become_user: root
+- import_tasks: migrate.yml
 
-- name: Add Certbot PPA
-  apt_repository:
-    repo: >-
-      deb
-      http://ppa.launchpad.net/certbot/certbot/ubuntu
-      {{ ansible_distribution_release }}
-      main
-    update_cache: true
-  become: true
-  become_user: root
-
-- name: Install Certbot package
-  apt:
-    # This is Python 3, but named differently in the PPA
-    name: python-certbot-nginx
-    force_apt_get: true
+- name: Install Certbot snap package
+  snap:
+    name: certbot
+    classic: true
+    channel: edge
   become: true
   become_user: root
 

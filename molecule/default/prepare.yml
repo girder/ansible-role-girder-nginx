@@ -37,3 +37,17 @@
       become: true
       become_user: root
       when: crt_result.changed  # noqa 503
+    - name: Mount root CAs into snap
+      # snap apps use snap's own copy of root CAs (rather than deferring to
+      # the OS's configuration), and snap refuses to support a proper way to
+      # modify or extend its internal set of root CAs
+      # https://forum.snapcraft.io/t/extending-system-certificates/114
+      # https://forum.snapcraft.io/t/certificate-substitution-and-snaps/1077
+      mount:
+        path: /snap/core/current/etc/ssl/
+        src: /etc/ssl
+        opts: bind
+        state: mounted
+        fstype: none
+      become: true
+      become_user: root

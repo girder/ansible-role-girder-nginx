@@ -34,9 +34,7 @@ platforms:
     groups:
       - targets
   - name: pebble
-    # Until Certbot >= 0.34.0 is used, Pebble needs an older version
-    # https://github.com/letsencrypt/pebble/issues/192
-    image: letsencrypt/pebble:v1.0.1
+    image: letsencrypt/pebble:latest
     pre_build_image: true
     override_command: false
     env:
