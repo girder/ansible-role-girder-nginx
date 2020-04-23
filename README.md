@@ -5,6 +5,8 @@
 An Ansible role to install Nginx, with HTTPS support, and configure it
 for use with Girder.
 
+SSL/TLS certificates for HTTPS are provided via LetsEncrypt. This role ensures that certificates automatically renew and configures HTTPS to earn an A+ rating from [SSL Labs Server Test](https://www.ssllabs.com/ssltest/index.html).
+
 ## Requirements
 
 Ubuntu 18.04+.
