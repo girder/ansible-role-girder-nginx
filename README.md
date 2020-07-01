@@ -26,6 +26,7 @@ do not allow this by default.
 | --------------------------- | -------- | -------------------- | ----------------------------------------------------------------------- |
 | `nginx_hostname`            | yes      |                      | The hostname of the site. `{{ inventory_hostname }}` may provide this.  |
 | `nginx_registration_email`  | no       | `girder@kitware.com` | The email address to register with Let's Encrypt for expiration alerts. |
+| `nginx_girder_location`     | no       | `/`                  | The path from which Girder will be served.                              |
 | `nginx_extra_server_config` | no       |                      | Any extra Nginx configuration to add to the `server` block for Girder.  |
 
 ## Dependencies
