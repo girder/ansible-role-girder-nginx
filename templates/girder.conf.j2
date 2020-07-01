@@ -23,7 +23,7 @@ server {
     large_client_header_buffers 10 20k;
 
     location {{ nginx_girder_location | default("/") }} {
-        proxy_pass http://localhost:8080;
+        proxy_pass http://localhost:8080/;
 
         proxy_http_version 1.1;
 
