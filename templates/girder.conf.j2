@@ -23,6 +23,8 @@ server {
     large_client_header_buffers 10 20k;
 
     location {{ nginx_girder_location | default("/") }} {
+        # The trailing slash makes proxy_pass a URI, so Nginx will strip any
+        # nginx_girder_location prefix from requests passed to the proxy
         proxy_pass http://localhost:8080/;
 
         proxy_http_version 1.1;
