@@ -11,24 +11,30 @@ driver:
   name: docker
 platforms:
   - name: ubuntu18
-    image: solita/ubuntu-systemd:18.04
-    privileged: false
+    image: ubuntu:18.04
+    dockerfile: Dockerfile.j2
     override_command: false
+    # Docker options for https://github.com/ogra1/snapd-docker
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /lib/modules:/lib/modules:ro
     tmpfs:
       - /run
       - /run/lock
+      - /tmp
+    devices:
+      - /dev/fuse
+    capabilities:
+      - SYS_ADMIN
     security_opts:
+      - apparmor=unconfined
       - seccomp=unconfined
     networks:
       - name: molecule
     groups:
       - targets
   - name: pebble
-    # Until Certbot >= 0.34.0 is used, Pebble needs an older version
-    # https://github.com/letsencrypt/pebble/issues/192
-    image: letsencrypt/pebble:v1.0.1
+    image: letsencrypt/pebble:latest
     pre_build_image: true
     override_command: false
     env:

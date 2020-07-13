@@ -10,24 +10,22 @@
         force_apt_get: true
       become: true
       become_user: root
+    - name: Install snap core runtime
+      snap:
+        name: core
+        channel: edge
+      become: true
+      become_user: root
     - name: Preconfigure Certbot to use local service for ACME
       ini_file:
         path: "{{ ansible_user_dir }}/.config/letsencrypt/cli.ini"
         section: null
-        option: "server"
-        value: "https://pebble:14000/dir"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
       become: true
       become_user: root
-    - name: Allow local ACME to use a custom root CA
-      # https://github.com/letsencrypt/pebble#avoiding-client-https-errors
-      copy:
-        src: pebble.minica.pem
-        dest: /usr/local/share/ca-certificates/pebble.minica.crt
-      become: true
-      become_user: root
-      register: crt_result
-    - name: Register custom root CAs
-      command: update-ca-certificates
-      become: true
-      become_user: root
-      when: crt_result.changed  # noqa 503
+      loop:
+        - option: "server"
+          value: "https://pebble:14000/dir"
+        - option: "no-verify-ssl"
+          value: "1"
