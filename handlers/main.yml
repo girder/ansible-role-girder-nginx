@@ -2,6 +2,7 @@
 - name: Restart Nginx
   systemd:
     name: nginx
+    daemon_reload: true
     state: restarted
   become: true
   become_user: root
