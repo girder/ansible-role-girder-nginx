@@ -1,6 +1,5 @@
 # girder.nginx
 [![Apache 2.0](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/girder/ansible-role-girder-nginx/master/LICENSE)
-[![Tests](https://circleci.com/gh/girder/ansible-role-girder-nginx.svg?style=svg)](https://circleci.com/gh/girder/ansible-role-girder-nginx)
 
 An Ansible role to install Nginx, with HTTPS support, and configure it
 for use with Girder.

@@ -13,6 +13,7 @@
     - name: Preconfigure Certbot to use local service for ACME
       ini_file:
         path: "{{ ansible_user_dir }}/.config/letsencrypt/cli.ini"
+        mode: 0644
         section: null
         option: "server"
         value: "https://pebble:14000/dir"
@@ -23,6 +24,7 @@
       copy:
         src: pebble.minica.pem
         dest: /usr/local/share/ca-certificates/pebble.minica.crt
+        mode: 0644
       become: true
       become_user: root
       register: crt_result
