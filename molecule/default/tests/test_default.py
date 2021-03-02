@@ -36,5 +36,5 @@ def test_nginx_service(host):
     443
 ])
 def test_nginx_socket(host, socket):
-    nginx_socket = host.socket("tcp://0.0.0.0:%d" % socket)
+    nginx_socket = host.socket(f'tcp://0.0.0.0:{socket}')
     assert nginx_socket.is_listening
