@@ -67,6 +67,7 @@
     - name: Install Certbot package from Ubuntu packages
       apt:
         name: python3-certbot-nginx
+        force_apt_get: true
       become: true
       become_user: root
 
