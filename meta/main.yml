@@ -1,10 +1,10 @@
 ---
 galaxy_info:
   role_name: nginx
+  author: girder
   description:
-    Install Nginx, with HTTPS support, and configure it for use with Girder
+    Install Nginx, with HTTPS support, and configure it for use with Girder.
 
-  author: Kitware, Inc.
   company: Kitware, Inc.
   issue_tracker_url:
     https://github.com/girder/ansible-role-girder-nginx/issues
