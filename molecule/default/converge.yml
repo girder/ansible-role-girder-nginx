@@ -2,6 +2,6 @@
 - name: Converge
   hosts: targets
   roles:
-    - role: ansible-role-girder-nginx
+    - role: girder.nginx
       vars:
         nginx_hostname: "{{ inventory_hostname }}"
