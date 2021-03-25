@@ -32,4 +32,4 @@
       command: update-ca-certificates
       become: true
       become_user: root
-      when: crt_result.changed  # noqa 503
+      when: crt_result.changed  # noqa: no-handler
