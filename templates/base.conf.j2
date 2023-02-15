@@ -12,7 +12,7 @@ server {
     server_name {{ nginx_hostname }};
 
     if ($host = {{ nginx_hostname }}) {
-        return 301 https://$host$request_uri;
+        return 308 https://$host$request_uri;
     }
     return 404;
 }
